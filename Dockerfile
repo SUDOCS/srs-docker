@@ -1,6 +1,6 @@
 # https://docs.docker.com/engine/reference/builder/#arg
 # @remark Please never modify it, the auto/release.sh will update it automatically.
-ARG tag=v4.0.153
+# ARG tag=v4.0.153
 ARG url=https://gitee.com/ossrs/srs.git
 
 ############################################################
@@ -8,11 +8,12 @@ ARG url=https://gitee.com/ossrs/srs.git
 ############################################################
 ARG repo=registry.cn-hangzhou.aliyuncs.com/ossrs/srs:dev
 FROM ${repo} AS build
-ARG tag
+# ARG tag
 ARG url
 # Install required tools.
 RUN yum install -y gcc make gcc-c++ patch unzip perl git
-RUN cd /tmp && git clone --depth=1 --branch ${tag} ${url} srs
+# RUN cd /tmp && git clone --depth=1 --branch ${tag} ${url} srs
+RUN cd /tmp && git clone --depth=1 ${url} srs
 RUN cd /tmp/srs/trunk && ./configure --srt=on && make && make install
 # All config files for SRS.
 COPY conf /usr/local/srs/conf
